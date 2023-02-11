@@ -1,0 +1,28 @@
+version: '3.8'
+services:
+  crypto_db:
+    image: postgres:latest
+    container_name: crypto_db
+    environment:
+      - POSTGRES_PASSWORD=${PSQL_DB_PWD}
+    ports:
+      - "5432:5432"
+    networks:
+      - crypto-network
+  crypto-service:
+    image: epamzurabtikaradze/crypto-recommendation-service:1.0.0
+    container_name: crypto-recommendation
+    environment:
+      PSQL_DB_URL: jdbc:postgresql://crypto_db:5432/postgres
+      PSQL_DB_USR: ${PSQL_DB_USR}
+      PSQL_DB_PWD: ${PSQL_DB_PWD}
+    ports:
+      - "8080:8080"
+    networks:
+      - crypto-network
+    depends_on:
+      - crypto_db
+networks:
+  crypto-network:
+    driver: bridge
+    name: k8-crypto-network
