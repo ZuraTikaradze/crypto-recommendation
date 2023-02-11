@@ -1,6 +1,7 @@
 package com.xm.cryptorecommendation.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import org.springframework.validation.annotation.Validated;
 
@@ -20,6 +21,7 @@ public class CryptoEntity extends BaseEntity {
     /**
      * Unique id
      */
+    @NotNull
     @Id
     @SequenceGenerator(name = "crypto_id_gen", sequenceName = "crypto_id_seq", allocationSize = 1)
     @GeneratedValue(generator = "crypto_id_gen")
@@ -28,11 +30,13 @@ public class CryptoEntity extends BaseEntity {
     /**
      * Crypto name
      */
+    @NotNull
     private String name;
 
     /**
      * Crypto active status
      */
+    @NotNull
     private boolean active;
 
 
